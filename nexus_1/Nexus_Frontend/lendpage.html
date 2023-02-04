@@ -216,8 +216,12 @@
         const profile = ()=>{
             window.location.href = "http:/profile";
         }
-    </script>
-    <script>
+
+        var result = localStorage.getItem("Response_data");
+        var bid = JSON.parse(result).BID;
+        var address = JSON.parse(result).Address;
+        var credit_score = JSON.parse(result).creditScore;
+        var _amount = JSON.parse(result).amount;
         let account;
 		const ConnectWallet = async() =>{
             const provider = window.ethereum;
@@ -249,178 +253,191 @@
 		};
         const lendFinal = async()=>{
             await ConnectWallet();
-            const ABI = 
-                [
-                    {
-                        "anonymous": false,
-                        "inputs": [
-                            {
-                                "indexed": true,
-                                "internalType": "address",
-                                "name": "previousOwner",
-                                "type": "address"
-                            },
-                            {
-                                "indexed": true,
-                                "internalType": "address",
-                                "name": "newOwner",
-                                "type": "address"
-                            }
-                        ],
-                        "name": "OwnershipTransferred",
-                        "type": "event"
-                    },
-                    {
-                        "anonymous": false,
-                        "inputs": [
-                            {
-                                "indexed": true,
-                                "internalType": "uint256",
-                                "name": "B_id",
-                                "type": "uint256"
-                            },
-                            {
-                                "indexed": true,
-                                "internalType": "address",
-                                "name": "B_address",
-                                "type": "address"
-                            },
-                            {
-                                "indexed": true,
-                                "internalType": "uint256",
-                                "name": "_amount",
-                                "type": "uint256"
-                            }
-                        ],
-                        "name": "_Borrow",
-                        "type": "event"
-                    },
-                    {
-                        "anonymous": false,
-                        "inputs": [
-                            {
-                                "indexed": true,
-                                "internalType": "uint256",
-                                "name": "B_id",
-                                "type": "uint256"
-                            },
-                            {
-                                "indexed": true,
-                                "internalType": "address",
-                                "name": "L_address",
-                                "type": "address"
-                            }
-                        ],
-                        "name": "_lend",
-                        "type": "event"
-                    },
-                    {
-                        "inputs": [
-                            {
-                                "internalType": "uint256",
-                                "name": "",
-                                "type": "uint256"
-                            }
-                        ],
-                        "name": "B_data",
-                        "outputs": [
-                            {
-                                "internalType": "address payable",
-                                "name": "B_address",
-                                "type": "address"
-                            },
-                            {
-                                "internalType": "uint256",
-                                "name": "amount",
-                                "type": "uint256"
-                            },
-                            {
-                                "internalType": "bool",
-                                "name": "hasRecieved",
-                                "type": "bool"
-                            }
-                        ],
-                        "stateMutability": "view",
-                        "type": "function"
-                    },
-                    {
-                        "inputs": [
-                            {
-                                "internalType": "address payable",
-                                "name": "_address",
-                                "type": "address"
-                            },
-                            {
-                                "internalType": "uint256",
-                                "name": "_amount",
-                                "type": "uint256"
-                            }
-                        ],
-                        "name": "borrow",
-                        "outputs": [],
-                        "stateMutability": "nonpayable",
-                        "type": "function"
-                    },
-                    {
-                        "inputs": [
-                            {
-                                "internalType": "uint256",
-                                "name": "B_ID",
-                                "type": "uint256"
-                            }
-                        ],
-                        "name": "lend",
-                        "outputs": [
-                            {
-                                "internalType": "bool",
-                                "name": "",
-                                "type": "bool"
-                            }
-                        ],
-                        "stateMutability": "payable",
-                        "type": "function"
-                    },
-                    {
-                        "inputs": [],
-                        "name": "owner",
-                        "outputs": [
-                            {
-                                "internalType": "address",
-                                "name": "",
-                                "type": "address"
-                            }
-                        ],
-                        "stateMutability": "view",
-                        "type": "function"
-                    },
-                    {
-                        "inputs": [],
-                        "name": "renounceOwnership",
-                        "outputs": [],
-                        "stateMutability": "nonpayable",
-                        "type": "function"
-                    },
-                    {
-                        "inputs": [
-                            {
-                                "internalType": "address",
-                                "name": "newOwner",
-                                "type": "address"
-                            }
-                        ],
-                        "name": "transferOwnership",
-                        "outputs": [],
-                        "stateMutability": "nonpayable",
-                        "type": "function"
-                    }
-                ];
-            const Address = "0x7ce9B26204108da8De59b3F43c98C06b732cF19e";
+            const ABI =
+            [
+                {
+                    "anonymous": false,
+                    "inputs": [
+                        {
+                            "indexed": true,
+                            "internalType": "address",
+                            "name": "previousOwner",
+                            "type": "address"
+                        },
+                        {
+                            "indexed": true,
+                            "internalType": "address",
+                            "name": "newOwner",
+                            "type": "address"
+                        }
+                    ],
+                    "name": "OwnershipTransferred",
+                    "type": "event"
+                },
+                {
+                    "anonymous": false,
+                    "inputs": [
+                        {
+                            "indexed": true,
+                            "internalType": "uint256",
+                            "name": "B_id",
+                            "type": "uint256"
+                        },
+                        {
+                            "indexed": true,
+                            "internalType": "address",
+                            "name": "B_address",
+                            "type": "address"
+                        },
+                        {
+                            "indexed": true,
+                            "internalType": "uint256",
+                            "name": "_amount",
+                            "type": "uint256"
+                        }
+                    ],
+                    "name": "_Borrow",
+                    "type": "event"
+                },
+                {
+                    "anonymous": false,
+                    "inputs": [
+                        {
+                            "indexed": true,
+                            "internalType": "uint256",
+                            "name": "B_id",
+                            "type": "uint256"
+                        },
+                        {
+                            "indexed": true,
+                            "internalType": "address",
+                            "name": "L_address",
+                            "type": "address"
+                        }
+                    ],
+                    "name": "_lend",
+                    "type": "event"
+                },
+                {
+                    "inputs": [
+                        {
+                            "internalType": "address payable",
+                            "name": "_address",
+                            "type": "address"
+                        },
+                        {
+                            "internalType": "uint256",
+                            "name": "_amount",
+                            "type": "uint256"
+                        }
+                    ],
+                    "name": "borrow",
+                    "outputs": [],
+                    "stateMutability": "nonpayable",
+                    "type": "function"
+                },
+                {
+                    "inputs": [
+                        {
+                            "internalType": "uint256",
+                            "name": "B_ID",
+                            "type": "uint256"
+                        }
+                    ],
+                    "name": "lend",
+                    "outputs": [
+                        {
+                            "internalType": "bool",
+                            "name": "",
+                            "type": "bool"
+                        }
+                    ],
+                    "stateMutability": "payable",
+                    "type": "function"
+                },
+                {
+                    "inputs": [],
+                    "name": "renounceOwnership",
+                    "outputs": [],
+                    "stateMutability": "nonpayable",
+                    "type": "function"
+                },
+                {
+                    "inputs": [
+                        {
+                            "internalType": "address",
+                            "name": "newOwner",
+                            "type": "address"
+                        }
+                    ],
+                    "name": "transferOwnership",
+                    "outputs": [],
+                    "stateMutability": "nonpayable",
+                    "type": "function"
+                },
+                {
+                    "inputs": [
+                        {
+                            "internalType": "uint256",
+                            "name": "",
+                            "type": "uint256"
+                        }
+                    ],
+                    "name": "B_data",
+                    "outputs": [
+                        {
+                            "internalType": "address payable",
+                            "name": "B_address",
+                            "type": "address"
+                        },
+                        {
+                            "internalType": "uint256",
+                            "name": "amount",
+                            "type": "uint256"
+                        },
+                        {
+                            "internalType": "bool",
+                            "name": "hasRecieved",
+                            "type": "bool"
+                        }
+                    ],
+                    "stateMutability": "view",
+                    "type": "function"
+                },
+                {
+                    "inputs": [],
+                    "name": "CurrentBid",
+                    "outputs": [
+                        {
+                            "internalType": "uint256",
+                            "name": "",
+                            "type": "uint256"
+                        }
+                    ],
+                    "stateMutability": "view",
+                    "type": "function"
+                },
+                {
+                    "inputs": [],
+                    "name": "owner",
+                    "outputs": [
+                        {
+                            "internalType": "address",
+                            "name": "",
+                            "type": "address"
+                        }
+                    ],
+                    "stateMutability": "view",
+                    "type": "function"
+                }
+            ];
+            const Address = "0x7662390f6395631b82aB7BD68579531af63e9825";
 			window.web3 = await new Web3(window.ethereum);
 			window.contract = await new window.web3.eth.Contract(ABI,Address);
-            let B_Id = document.getElementById('B_Id').value; // change this to get data from prev page
+            let B_Id = bid; // change this to get data from prev page
             
-            const amount = await Web3.utils.toWei('10', 'ether');//get amount from mongo db, making it hardcoded for now;
-            await window.contract.methods.lend(B_Id).send({from:account, value:100000000000000000000});
+            const amount = await Web3.utils.toWei(`${_amount}`, 'ether');//get amount from mongo db, making it hardcoded for now;
+            await window.contract.methods.lend(B_Id).send({from:account, value:amount});
         }
     </script>
 </html>
