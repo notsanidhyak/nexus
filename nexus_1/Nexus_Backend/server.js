@@ -4,12 +4,17 @@ const cors = require('cors');
 const mongoose=require('mongoose');
 
 const app = express();
-app.use(cors());
+
+app.use(cors({
+    origin: "*"
+}));
+
 app.use(express.json());
 
-const controller = require("./controller.js")
+const controller = require("./controller.js");
 
-app.post('/',controller.AddBorrower)
+app.post('/',controller.AddBorrower);
+app.get('/get',controller.getAllBorrow);
 
 const SERVER_DB_URI=process.env.DB_URI;
 const PORT = 3000;
