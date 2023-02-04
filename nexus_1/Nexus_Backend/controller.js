@@ -5,8 +5,8 @@ const readline = require("readline").createInterface({
   });
 
   module.exports.AddBorrower = async(req,res)=>{
-    const _bId = req.body.B_Id;
-    const _address = req.body.address;
+    const _bId = req.body.BID;
+    const _address = req.body.Address;
     const _amount = req.body.amount;
     const newBorrow = await createBorrow(_bId,_address,_amount);
     res.send(newBorrow);
@@ -19,4 +19,9 @@ const readline = require("readline").createInterface({
         creditScore: 700,
         amount: _amount
     })
+  }
+
+  module.exports.getAllBorrow=async (req,res)=>{
+    const user=await User.findOne({BID:16});
+    res.send(user);
   }
