@@ -6,6 +6,8 @@ app.get("/", (req, res) => {
     res.sendFile(path.join(__dirname + "/landingpage.html"));
 })
 
+
+
 app.get("/minted", (req, res) => {
     res.sendFile(path.join(__dirname + "/nft_minted.html"));
 })
@@ -25,6 +27,23 @@ app.get("/borrow", (req, res) => {
 app.get("/lendPage", (req, res) => {
     res.sendFile(path.join(__dirname + "/lendpage.html"));
 })
+
+app.get("/profile", (req, res) => {
+    res.sendFile(path.join(__dirname + "/profile.html"));
+})
+
+app.get("/who", (req, res) => {
+    res.sendFile(path.join(__dirname + "/who.html"));
+})
+
+app.get("/how", (req, res) => {
+    res.sendFile(path.join(__dirname + "/how.html"));
+})
+
+app.get("/why", (req, res) => {
+    res.sendFile(path.join(__dirname + "/why.html"));
+})
+
 
 // app.get("/verified", (req, res) => {
 //     res.sendFile(path.join(__dirname + "/verified.html"));

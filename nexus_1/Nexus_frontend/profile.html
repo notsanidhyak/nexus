@@ -190,15 +190,23 @@
                 </ul>
             </nav>
         </div>  -->
-        <button class ="BackB">&#60</button>
+        <button class ="BackB" onclick="lend_or_borrow()">&#60</button>
 
         <a class = "ProB">
             <div class = "Profile">
-                <button class="continue_wallet"><span class="wallet">Logout</span></button>     
+                <button class="continue_wallet" onclick="home()"><span class="wallet">Logout</span></button>     
             </div>
         </a>
         <div class = "Beech">
             <img class = "BigProf" src = "./Big_profile_2.jpg">      
         </div>
     </body>
+    <script>
+        const lend_or_borrow = ()=>{
+            window.location.href = "http:/LB";
+        };
+        const home = ()=>{
+            window.location.href = "http:/";
+        }
+    </script>
 </html>

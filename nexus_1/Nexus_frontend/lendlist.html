@@ -345,10 +345,10 @@
     </head>
     <body>
         
-        <button class ="BackB">&#60</button>
+        <button class ="BackB" onclick="lend_or_borrow()">&#60</button>
         <a class = "ProB">
             <div class = "Profile">
-                <img src="Profile_DP.jpg"alt="Avatar"class="avatar">     
+                <img src="Profile_DP.jpg"alt="Avatar"class="avatar" onclick="profile()">     
             </div>
         </a>
         <div class = "Beech">
@@ -356,8 +356,16 @@
         </div>
     </body>
     <script>
+        const lend_or_borrow = ()=>{
+            window.location.href = "http:/LB";
+        }
+    </script>
+    <script>
         const lendpage = ()=>{
-            window.location.href = "http:/lendPage";
+            window.location.href = "http:/lendpage";
+        };
+        const profile = ()=>{
+            window.location.href = "http:/profile";
         }
     </script>
 </html>

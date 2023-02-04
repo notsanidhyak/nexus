@@ -120,7 +120,7 @@
 
             .BackB{
                 margin-top: 47px;
-                margin-left: 44px;
+                margin-left: 40px;
                 font-size: 35px;
                 font-weight: 700;
                 background-color: transparent;
@@ -128,11 +128,12 @@
                 color: white;
                 cursor: pointer;
                 transition: color 0.4s;
-                
+                text-decoration: none;                
             }
 
             .BackB:hover{
                 color: rgb(74, 215, 163);
+                text-decoration: none;
             }
 
             .ProfB{
@@ -187,10 +188,10 @@
                 </ul>
             </nav>
         </div>  -->
-        <button class ="BackB">&#60</button>
+        <button class ="BackB" onclick="window.location.href='http:/LB';">&#60</button>
         <a class = "ProB">
             <div class = "Profile">
-                <img src="Profile_DP.jpg"alt="Avatar"class="avatar">     
+                <img src="Profile_DP.jpg"alt="Avatar"class="avatar" onclick="profile()">     
             </div>
         </a>
         <div class="InputBox">
@@ -404,5 +405,8 @@
             let value = Web3.utils.toWei(document.getElementById('Amount').value, 'ether')
 			await window.contract.methods.borrow(account,value).send({from:account});
 		};
+        const profile = ()=>{
+            window.location.href = "http:/profile";
+        }
     </script>
 </html>
