@@ -1,0 +1,633 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <title>Nexus Home</title>
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/web3/1.2.7-rc.0/web3.min.js"></script>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Iceland&display=swap" rel="stylesheet">
+
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Jost&display=swap" rel="stylesheet">
+
+        <style>
+            body{
+                width: 1512px;
+                height: 982px;
+                background-image: url('./MAIN.jpg');
+                background-size: cover;
+                background-repeat: no-repeat;
+                /* background-attachment: fixed; */
+            }
+
+            .continue_wallet{
+                background-color: rgb(74, 215, 163);
+                margin-top: 639px;
+                margin-left: 80px;
+                padding: 16px;
+                width: 271px;
+                border: none;
+                border-radius: 6px;
+                color: rgb(0, 0, 32);
+                font-weight: bold;
+                font-size: 18px;
+                cursor: pointer;
+                transition: background-color 0.4s, color 0.4s; 
+            }
+
+            .continue_wallet:hover{
+                /* background-color: rgb(74, 215, 163);
+                margin-top: 639px;
+                margin-left: 80px;
+                padding: 16px;
+                width: 271px;
+                border: none;
+                border-radius: 6px;
+                color: rgb(0, 0, 32);
+                font-weight: bold;
+                font-size: 18px;
+                cursor: pointer; */
+                background-color: rgb(163,237,210);
+                color: rgb(0, 0, 32);
+            }
+
+            nav{
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                padding-top: 35px;
+                padding-left: 51%;
+
+            }
+
+            nav ul li{
+                font-size: 24px;
+                list-style-type: none;
+                display: inline-block;
+                padding: 10px 51px;
+                font-family: 'Jost', sans-serif;
+                
+            }
+
+            nav ul li a{
+                color: white;
+                text-decoration: none;
+                font-weight: bold;
+                transition: color 0.3s, text-decoration 0.3s;
+            }
+
+            nav ul li a:hover{
+                color: rgb(74, 215, 163);
+                text-decoration: underline;
+                font-weight: bold;
+                
+            }
+
+            .wallet{
+                font-family: 'Iceland', cursive;
+                font-weight: 500;
+                font-size: 33px;
+            }
+        </style>
+    </head>
+    <body>
+        <div class = "navbar">
+            <nav>
+                <ul>
+                    <li><a href="#">What</a></li>
+                    <li><a href="#">How</a></li>
+                    <li><a href="#">Why</a></li>
+                    <li><a href="#">Who</a></li>
+                </ul>
+            </nav>
+        </div> 
+        <button type="button" class="continue_wallet" onClick="button()"><span class="wallet">Connect Wallet</span></button>      
+    </body>
+    <script>
+        //connect metamask
+		let account;
+		const ConnectWallet = async() =>{
+            const provider = window.ethereum;
+            const MumbaiTestChainId = '0x13881';
+			if(provider !== "undefined"){
+                const chainId = await provider.request({ method: 'eth_chainId' });
+                if(chainId === MumbaiTestChainId){
+                    console.log("Bravo!, you are on the correct network");
+                }
+                else{
+                    console.log("Wrong Network, Switch to correct network");
+                    try {
+                        await provider.request({
+                            method: 'wallet_switchEthereumChain',
+                            params: [{ chainId: MumbaiTestChainId}],
+                        });
+                        console.log("You have succefully switched to Polygon Test network")
+                        } catch (switchError) {
+                        // This error code indicates that the chain has not been added to MetaMask.
+                            if (switchError.code === 4902) {
+                            console.log("This network is not available in your metamask, please add it")
+                        }
+                            console.log("Failed to switch to the network")
+                    }
+                }
+                const accounts = await ethereum.request({method:"eth_requestAccounts"});
+				account = accounts[0];
+			}
+		};
+        const mint = async()=>{
+			const ABI = 
+            [
+                {
+                    "inputs": [],
+                    "stateMutability": "nonpayable",
+                    "type": "constructor"
+                },
+                {
+                    "anonymous": false,
+                    "inputs": [
+                        {
+                            "indexed": true,
+                            "internalType": "address",
+                            "name": "owner",
+                            "type": "address"
+                        },
+                        {
+                            "indexed": true,
+                            "internalType": "address",
+                            "name": "approved",
+                            "type": "address"
+                        },
+                        {
+                            "indexed": true,
+                            "internalType": "uint256",
+                            "name": "tokenId",
+                            "type": "uint256"
+                        }
+                    ],
+                    "name": "Approval",
+                    "type": "event"
+                },
+                {
+                    "anonymous": false,
+                    "inputs": [
+                        {
+                            "indexed": true,
+                            "internalType": "address",
+                            "name": "owner",
+                            "type": "address"
+                        },
+                        {
+                            "indexed": true,
+                            "internalType": "address",
+                            "name": "operator",
+                            "type": "address"
+                        },
+                        {
+                            "indexed": false,
+                            "internalType": "bool",
+                            "name": "approved",
+                            "type": "bool"
+                        }
+                    ],
+                    "name": "ApprovalForAll",
+                    "type": "event"
+                },
+                {
+                    "inputs": [
+                        {
+                            "internalType": "address",
+                            "name": "to",
+                            "type": "address"
+                        },
+                        {
+                            "internalType": "uint256",
+                            "name": "tokenId",
+                            "type": "uint256"
+                        }
+                    ],
+                    "name": "approve",
+                    "outputs": [],
+                    "stateMutability": "nonpayable",
+                    "type": "function"
+                },
+                {
+                    "anonymous": false,
+                    "inputs": [
+                        {
+                            "indexed": true,
+                            "internalType": "address",
+                            "name": "to",
+                            "type": "address"
+                        },
+                        {
+                            "indexed": true,
+                            "internalType": "uint256",
+                            "name": "tokenId",
+                            "type": "uint256"
+                        }
+                    ],
+                    "name": "Attest",
+                    "type": "event"
+                },
+                {
+                    "inputs": [
+                        {
+                            "internalType": "uint256",
+                            "name": "tokenId",
+                            "type": "uint256"
+                        }
+                    ],
+                    "name": "burn",
+                    "outputs": [],
+                    "stateMutability": "nonpayable",
+                    "type": "function"
+                },
+                {
+                    "anonymous": false,
+                    "inputs": [
+                        {
+                            "indexed": true,
+                            "internalType": "address",
+                            "name": "previousOwner",
+                            "type": "address"
+                        },
+                        {
+                            "indexed": true,
+                            "internalType": "address",
+                            "name": "newOwner",
+                            "type": "address"
+                        }
+                    ],
+                    "name": "OwnershipTransferred",
+                    "type": "event"
+                },
+                {
+                    "inputs": [],
+                    "name": "renounceOwnership",
+                    "outputs": [],
+                    "stateMutability": "nonpayable",
+                    "type": "function"
+                },
+                {
+                    "inputs": [
+                        {
+                            "internalType": "uint256",
+                            "name": "tokenId",
+                            "type": "uint256"
+                        }
+                    ],
+                    "name": "revoke",
+                    "outputs": [],
+                    "stateMutability": "nonpayable",
+                    "type": "function"
+                },
+                {
+                    "anonymous": false,
+                    "inputs": [
+                        {
+                            "indexed": true,
+                            "internalType": "address",
+                            "name": "to",
+                            "type": "address"
+                        },
+                        {
+                            "indexed": true,
+                            "internalType": "uint256",
+                            "name": "tokenId",
+                            "type": "uint256"
+                        }
+                    ],
+                    "name": "Revoke",
+                    "type": "event"
+                },
+                {
+                    "inputs": [
+                        {
+                            "internalType": "address",
+                            "name": "to",
+                            "type": "address"
+                        },
+                        {
+                            "internalType": "string",
+                            "name": "uri",
+                            "type": "string"
+                        }
+                    ],
+                    "name": "safeMint",
+                    "outputs": [],
+                    "stateMutability": "nonpayable",
+                    "type": "function"
+                },
+                {
+                    "inputs": [
+                        {
+                            "internalType": "address",
+                            "name": "from",
+                            "type": "address"
+                        },
+                        {
+                            "internalType": "address",
+                            "name": "to",
+                            "type": "address"
+                        },
+                        {
+                            "internalType": "uint256",
+                            "name": "tokenId",
+                            "type": "uint256"
+                        }
+                    ],
+                    "name": "safeTransferFrom",
+                    "outputs": [],
+                    "stateMutability": "nonpayable",
+                    "type": "function"
+                },
+                {
+                    "inputs": [
+                        {
+                            "internalType": "address",
+                            "name": "from",
+                            "type": "address"
+                        },
+                        {
+                            "internalType": "address",
+                            "name": "to",
+                            "type": "address"
+                        },
+                        {
+                            "internalType": "uint256",
+                            "name": "tokenId",
+                            "type": "uint256"
+                        },
+                        {
+                            "internalType": "bytes",
+                            "name": "data",
+                            "type": "bytes"
+                        }
+                    ],
+                    "name": "safeTransferFrom",
+                    "outputs": [],
+                    "stateMutability": "nonpayable",
+                    "type": "function"
+                },
+                {
+                    "inputs": [
+                        {
+                            "internalType": "address",
+                            "name": "operator",
+                            "type": "address"
+                        },
+                        {
+                            "internalType": "bool",
+                            "name": "approved",
+                            "type": "bool"
+                        }
+                    ],
+                    "name": "setApprovalForAll",
+                    "outputs": [],
+                    "stateMutability": "nonpayable",
+                    "type": "function"
+                },
+                {
+                    "anonymous": false,
+                    "inputs": [
+                        {
+                            "indexed": true,
+                            "internalType": "address",
+                            "name": "from",
+                            "type": "address"
+                        },
+                        {
+                            "indexed": true,
+                            "internalType": "address",
+                            "name": "to",
+                            "type": "address"
+                        },
+                        {
+                            "indexed": true,
+                            "internalType": "uint256",
+                            "name": "tokenId",
+                            "type": "uint256"
+                        }
+                    ],
+                    "name": "Transfer",
+                    "type": "event"
+                },
+                {
+                    "inputs": [
+                        {
+                            "internalType": "address",
+                            "name": "from",
+                            "type": "address"
+                        },
+                        {
+                            "internalType": "address",
+                            "name": "to",
+                            "type": "address"
+                        },
+                        {
+                            "internalType": "uint256",
+                            "name": "tokenId",
+                            "type": "uint256"
+                        }
+                    ],
+                    "name": "transferFrom",
+                    "outputs": [],
+                    "stateMutability": "nonpayable",
+                    "type": "function"
+                },
+                {
+                    "inputs": [
+                        {
+                            "internalType": "address",
+                            "name": "newOwner",
+                            "type": "address"
+                        }
+                    ],
+                    "name": "transferOwnership",
+                    "outputs": [],
+                    "stateMutability": "nonpayable",
+                    "type": "function"
+                },
+                {
+                    "inputs": [
+                        {
+                            "internalType": "address",
+                            "name": "owner",
+                            "type": "address"
+                        }
+                    ],
+                    "name": "balanceOf",
+                    "outputs": [
+                        {
+                            "internalType": "uint256",
+                            "name": "",
+                            "type": "uint256"
+                        }
+                    ],
+                    "stateMutability": "view",
+                    "type": "function"
+                },
+                {
+                    "inputs": [
+                        {
+                            "internalType": "uint256",
+                            "name": "tokenId",
+                            "type": "uint256"
+                        }
+                    ],
+                    "name": "getApproved",
+                    "outputs": [
+                        {
+                            "internalType": "address",
+                            "name": "",
+                            "type": "address"
+                        }
+                    ],
+                    "stateMutability": "view",
+                    "type": "function"
+                },
+                {
+                    "inputs": [
+                        {
+                            "internalType": "address",
+                            "name": "owner",
+                            "type": "address"
+                        },
+                        {
+                            "internalType": "address",
+                            "name": "operator",
+                            "type": "address"
+                        }
+                    ],
+                    "name": "isApprovedForAll",
+                    "outputs": [
+                        {
+                            "internalType": "bool",
+                            "name": "",
+                            "type": "bool"
+                        }
+                    ],
+                    "stateMutability": "view",
+                    "type": "function"
+                },
+                {
+                    "inputs": [],
+                    "name": "name",
+                    "outputs": [
+                        {
+                            "internalType": "string",
+                            "name": "",
+                            "type": "string"
+                        }
+                    ],
+                    "stateMutability": "view",
+                    "type": "function"
+                },
+                {
+                    "inputs": [],
+                    "name": "owner",
+                    "outputs": [
+                        {
+                            "internalType": "address",
+                            "name": "",
+                            "type": "address"
+                        }
+                    ],
+                    "stateMutability": "view",
+                    "type": "function"
+                },
+                {
+                    "inputs": [
+                        {
+                            "internalType": "uint256",
+                            "name": "tokenId",
+                            "type": "uint256"
+                        }
+                    ],
+                    "name": "ownerOf",
+                    "outputs": [
+                        {
+                            "internalType": "address",
+                            "name": "",
+                            "type": "address"
+                        }
+                    ],
+                    "stateMutability": "view",
+                    "type": "function"
+                },
+                {
+                    "inputs": [
+                        {
+                            "internalType": "bytes4",
+                            "name": "interfaceId",
+                            "type": "bytes4"
+                        }
+                    ],
+                    "name": "supportsInterface",
+                    "outputs": [
+                        {
+                            "internalType": "bool",
+                            "name": "",
+                            "type": "bool"
+                        }
+                    ],
+                    "stateMutability": "view",
+                    "type": "function"
+                },
+                {
+                    "inputs": [],
+                    "name": "symbol",
+                    "outputs": [
+                        {
+                            "internalType": "string",
+                            "name": "",
+                            "type": "string"
+                        }
+                    ],
+                    "stateMutability": "view",
+                    "type": "function"
+                },
+                {
+                    "inputs": [
+                        {
+                            "internalType": "uint256",
+                            "name": "tokenId",
+                            "type": "uint256"
+                        }
+                    ],
+                    "name": "tokenURI",
+                    "outputs": [
+                        {
+                            "internalType": "string",
+                            "name": "",
+                            "type": "string"
+                        }
+                    ],
+                    "stateMutability": "view",
+                    "type": "function"
+                }
+            ]
+            const Address = "0x7662390f6395631b82aB7BD68579531af63e9825";
+			window.web3 = await new Web3(window.ethereum);
+			window.contract = await new window.web3.eth.Contract(ABI,Address);
+			await window.contract.methods.safeMint(account,'https://nftstorage.link/ipfs/bafkreib45afowcsprbz63kcb54t5gsbnuxpfsrcrg6qdesnivjf2tlmswi').send({from:account});
+		};
+        
+        let redirect_Page = () => {
+            let tID = setTimeout(function () {
+                window.location.href = "http:/minted";
+                window.clearTimeout(tID);		// clear time out.
+            }, 1000);
+		};
+        
+        const button = async()=>{
+            await ConnectWallet();
+            await mint();
+            redirect_Page();
+        }
+    </script>
+</html>
