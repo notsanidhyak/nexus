@@ -1,8 +1,8 @@
 # nexus
 A peer to peer decentralized lending and borrowing solution.
-
+\n
 > Blockchain Implementation:
-
+\n
 1. Initially when a new user signs up in our website we will
 read their meta-mask address and mint a profile Soul
 Bound Token (SBT) (an NFT that cannot be transferred). Its
