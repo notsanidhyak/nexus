@@ -37,6 +37,9 @@ Created smart contract deployed on FVM (Filecoin virtual machine) for the lendin
 
 The amount will be safely transferred using the smart contract. The sign-up process will only be successful if the profile is not already minted with a soul bound token since it is a NFT which cannot be transferred.
 
+
+> Images:
+
 ![image](https://user-images.githubusercontent.com/86651116/216798560-73dc2c2c-374c-4430-9140-3206d5baa36d.png)
 
 ![image](https://user-images.githubusercontent.com/86651116/216798568-f9e5a340-dfc6-4e4b-9819-f77bcd74c35f.png)
