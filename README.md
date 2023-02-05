@@ -1,8 +1,8 @@
 # nexus
-A peer to peer decentralized lending and borrowing solution.
-\n
+A peer to peer decentralized lending and borrowing solution. Made with ❤ by Team Phishers+ve.
+
 > Blockchain Implementation:
-\n
+
 1. Initially when a new user signs up in our website we will
 read their meta-mask address and mint a profile Soul
 Bound Token (SBT) (an NFT that cannot be transferred). Its
@@ -58,8 +58,4 @@ The amount will be safely transferred using the smart contract. The sign-up proc
 
 ![image](https://user-images.githubusercontent.com/86651116/216798648-528e5514-5cc9-4422-a8e6-f5db0e1af7e3.png)
 
-
-
-
-
-
+That's all for now folks!
