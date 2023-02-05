@@ -421,13 +421,13 @@
     </body>
     <script>
         var result = localStorage.getItem("Response_data");
-        var bid = JSON.parse(result).BID;
+        var bid = JSON.parse(result)[0].BID;
         document.getElementById("bid").innerHTML = bid;
-        var address = JSON.parse(result).Address;
+        var address = JSON.parse(result)[0].Address;
         document.getElementById("address").innerHTML = address;
-        var credit_score = JSON.parse(result).creditScore;
+        var credit_score = JSON.parse(result)[0].creditScore;
         document.getElementById("creditSc").innerHTML = credit_score;
-        var _amount = JSON.parse(result).amount;
+        var _amount = JSON.parse(result)[0].amount;
         document.getElementById("amount").innerHTML = _amount;
         
     </script>
