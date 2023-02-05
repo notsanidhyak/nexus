@@ -22,6 +22,6 @@ const readline = require("readline").createInterface({
   }
 
   module.exports.getAllBorrow=async (req,res)=>{
-    const user=await User.findOne({BID:16});
+    const user=await User.find({}).sort({_id:-1}).limit(1);
     res.send(user);
   }
