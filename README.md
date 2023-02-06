@@ -71,6 +71,10 @@ MongoDB.
 
 ![image](https://user-images.githubusercontent.com/86651116/216798648-528e5514-5cc9-4422-a8e6-f5db0e1af7e3.png)
 
+![How Page](https://user-images.githubusercontent.com/86651116/217055772-fa3037f5-8b97-4e70-b91f-565efa17cdb7.png)
+
+![Why Page](https://user-images.githubusercontent.com/86651116/217055789-8a45d38d-8e74-48b4-af55-15b13d9d98ab.png)
+
 ![Who Page](https://user-images.githubusercontent.com/86651116/217055432-3b670946-a182-4758-b362-6c9a427af7eb.png)
 
 
