@@ -1,6 +1,7 @@
 # nexus
 ### A peer to peer decentralized lending and borrowing solution. 
-This project was developed as a part of Hackathon: **HackInfinity 3.0**. <br />
+This project was developed as a part of Hackathon: **HackInfinity 3.0**. 
+<br />
 Made with ❤ by Team Phishers+ve.
 
 [Link to Presentation](https://docs.google.com/presentation/d/1LwY5ob_lkBRUrtpoLccnqSxwVQ-G9fw6kkeIrZuEZ0I/edit?usp=sharing)
